@@ -1,5 +1,6 @@
-import PagePlaceholder from '../../components/common/PagePlaceholder'
-
+import { Link } from 'react-router-dom'
+const features = [['Find your favorite', 'Explore coffee, matcha, chocolate, tea, and a pastry to go with your drink.'], ['Check live availability', 'See which sizes can be prepared from the ingredients currently in stock.'], ['Keep it simple', 'Browse the menu and choose the size that suits your coffee break.']]
 export default function LandingPage() {
-  return <PagePlaceholder title="Welcome to BrewLogic" description="Discover BrewLogic and explore our coffee shop menu." />
+ return <div className="space-y-10"><section className="rounded-3xl bg-amber-950 px-6 py-12 text-amber-50 sm:px-12 sm:py-20"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-200">BrewLogic ? Your coffee break</p><h1 className="mt-5 max-w-3xl text-4xl leading-tight font-semibold tracking-tight sm:text-6xl">A little pause.<br />A good cup.</h1><p className="mt-6 max-w-xl text-lg leading-8 text-amber-100">From your everyday latte to something a little sweeter, find your next drink at BrewLogic.</p><Link to="/menu" className="mt-8 inline-block rounded-xl bg-amber-100 px-6 py-3 font-semibold text-amber-950 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Explore the menu ?</Link></section>
+ <section aria-label="Explore BrewLogic" className="grid gap-6 md:grid-cols-3">{features.map(([title, description], index) => <article key={title} className="rounded-2xl border border-stone-200 bg-white p-6"><span aria-hidden="true" className="text-sm font-semibold text-amber-800">0{index + 1}</span><h2 className="mt-3 text-lg font-semibold">{title}</h2><p className="mt-2 text-sm leading-6 text-stone-600">{description}</p></article>)}</section></div>
 }

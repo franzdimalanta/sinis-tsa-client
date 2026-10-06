@@ -1,0 +1,1 @@
+export default function LoadingState({ message = 'Loading the menu?' }: { message?: string }) { return <p role="status" className="rounded-2xl border border-amber-100 bg-white p-8 text-stone-600">{message}</p> }

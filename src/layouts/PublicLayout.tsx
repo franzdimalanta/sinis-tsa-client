@@ -1,7 +1,9 @@
 import { Link, Outlet } from 'react-router-dom'
 import NavigationLink from '../components/navigation/NavigationLink'
+import { useCart } from '../hooks/useCart'
 
 export default function PublicLayout() {
+  const { totalQuantity } = useCart()
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-stone-200 bg-white">
@@ -10,7 +12,7 @@ export default function PublicLayout() {
           <nav aria-label="Customer navigation" className="flex flex-wrap gap-1">
             <NavigationLink to="/" label="Home" end />
             <NavigationLink to="/menu" label="Menu" />
-            <NavigationLink to="/cart" label="Cart" />
+            <NavigationLink to="/cart" label={`Cart (${totalQuantity})`} />
           </nav>
         </div>
       </header>
@@ -19,7 +21,7 @@ export default function PublicLayout() {
       </main>
       <footer className="border-t border-stone-200">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-3 px-4 py-5 text-sm text-stone-600 sm:px-6">
-          <p>BrewLogic · Coffee Shop Management System</p>
+          <p>BrewLogic - Coffee Shop Management System</p>
           <Link to="/manage" className="underline underline-offset-4 hover:text-stone-900">Management</Link>
         </div>
       </footer>

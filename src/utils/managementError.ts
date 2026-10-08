@@ -7,7 +7,7 @@ export function getManagementError(error: unknown, resource: 'menu' | 'order' | 
    if (resource === 'ingredient' || resource === 'recipe') {
     const safeInventoryMessages = ['Ingredient not found', 'Recipe not found', 'Invalid ingredient ID', 'Invalid recipe ID',
      'Cannot add stock to an inactive ingredient', 'Stock quantity must be changed through inventory operations',
-     'Cannot delete ingredient because it is used by recipes', 'Referenced ingredient does not exist',
+     'Cannot delete ingredient because it is used by recipes', 'Cannot delete ingredient because it has inventory transaction history', 'Referenced ingredient does not exist',
      'Referenced menu item does not exist', 'Recipe size must exist in the menu item sizes',
      'A recipe already exists for this menu item and size', 'A record with this name already exists',
      'Quantity must be a finite number greater than 0', 'Reason must be a non-empty string',

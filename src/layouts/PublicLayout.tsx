@@ -5,24 +5,27 @@ import { useCart } from '../hooks/useCart'
 export default function PublicLayout() {
   const { totalQuantity } = useCart()
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b border-stone-200 bg-white">
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-5 sm:px-6">
-          <Link to="/" className="text-xl font-bold tracking-tight">BrewLogic</Link>
-          <nav aria-label="Customer navigation" className="flex flex-wrap gap-1">
+    <div className="flex min-h-screen flex-col bg-background">
+      <header className="border-b border-border bg-surface">
+        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-5 px-5 py-6 sm:px-8">
+          <Link to="/" className="text-primary focus-visible:rounded-sm">
+            <span className="block font-editorial text-3xl leading-none tracking-tight sm:text-4xl">BrewLogic</span>
+            <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.2em] text-muted">Coffee, simplified.</span>
+          </Link>
+          <nav aria-label="Customer navigation" className="flex flex-wrap items-center gap-1">
             <NavigationLink to="/" label="Home" end />
             <NavigationLink to="/menu" label="Menu" />
             <NavigationLink to="/cart" label={`Cart (${totalQuantity})`} />
           </nav>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
+      <main className="mx-auto w-full min-w-0 max-w-6xl flex-1 px-5 py-8 sm:px-8 sm:py-10">
         <Outlet />
       </main>
-      <footer className="border-t border-stone-200">
-        <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-3 px-4 py-5 text-sm text-stone-600 sm:px-6">
+      <footer className="border-t border-border bg-surface-warm">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-6 text-sm text-muted sm:px-8">
           <p>BrewLogic - Coffee Shop Management System</p>
-          <Link to="/manage" className="underline underline-offset-4 hover:text-stone-900">Management</Link>
+          <Link to="/manage" className="ui-button-tertiary">Management</Link>
         </div>
       </footer>
     </div>

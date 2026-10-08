@@ -1,5 +1,3 @@
-import PagePlaceholder from '../../components/common/PagePlaceholder'
-
-export default function EditMenuItemPage() {
-  return <PagePlaceholder title="Edit Menu Item" description="Update an existing menu item and its sizes." />
-}
+import { useParams } from 'react-router-dom'
+import MenuItemEditor from '../../components/management/MenuItemEditor'
+export default function EditMenuItemPage() { const { id = '' } = useParams(); return <MenuItemEditor key={id} id={id} /> }

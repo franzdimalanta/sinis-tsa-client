@@ -1,9 +1,23 @@
 import axios from 'axios'
-export function getManagementError(error: unknown, resource: 'menu' | 'order' = 'menu') {
+export function getManagementError(error: unknown, resource: 'menu' | 'order' | 'ingredient' | 'recipe' = 'menu') {
  if (axios.isAxiosError<{ message?: unknown }>(error)) {
-  if (error.response?.status === 404) return resource === 'order' ? 'This order could not be found.' : 'This menu item could not be found.'
+  if (error.response?.status === 404) return resource === 'menu' ? 'This menu item could not be found.' : `This ${resource} could not be found.`
   if (error.response?.status === 400) {
    const message = error.response.data.message
+   if (resource === 'ingredient' || resource === 'recipe') {
+    const safeInventoryMessages = ['Ingredient not found', 'Recipe not found', 'Invalid ingredient ID', 'Invalid recipe ID',
+     'Cannot add stock to an inactive ingredient', 'Stock quantity must be changed through inventory operations',
+     'Cannot delete ingredient because it is used by recipes', 'Referenced ingredient does not exist',
+     'Referenced menu item does not exist', 'Recipe size must exist in the menu item sizes',
+     'A recipe already exists for this menu item and size', 'A record with this name already exists',
+     'Quantity must be a finite number greater than 0', 'Reason must be a non-empty string',
+     'Reason must not exceed 300 characters', 'Each recipe ingredient must have a valid ObjectId',
+     'A valid menu item ObjectId is required', 'A valid ingredient ObjectId is required',
+     'A recipe must have at least one ingredient, with no duplicate ingredients.',
+     'Ingredient quantity must be greater than 0.', 'Invalid inventory transaction type', 'Invalid ingredient ObjectId filter']
+    if (typeof message === 'string' && safeInventoryMessages.includes(message)) return message
+    return 'Please check the selected records and form values, then try again.'
+   }
    if (resource === 'order') {
     const safeOrderMessages = ['Invalid order ID', 'Invalid order status', 'Invalid order status filter',
      'Order status has changed; refresh and try again',

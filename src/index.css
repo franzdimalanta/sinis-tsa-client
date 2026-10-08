@@ -128,3 +128,29 @@
   .management-sidebar .brew-nav-link.is-active:hover { color: var(--color-primary); background: var(--color-border); }
   @media (prefers-reduced-motion: reduce) { .brew-nav-link { transition: none; } }
 }
+
+@layer utilities {
+  /* Customer receipt styling is scoped; management summaries keep their layout. */
+  .customer-page .order-summary-item {
+    border-width: 0 0 1px;
+    border-radius: 0;
+    background: transparent;
+    padding: 0 0 1rem;
+  }
+  .customer-page .order-summary-item h3 {
+    font-family: var(--font-editorial);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-primary);
+  }
+  .customer-page .order-summary-discount {
+    color: var(--color-green-800);
+    font-weight: 500;
+  }
+  .customer-page .order-summary-total {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+}

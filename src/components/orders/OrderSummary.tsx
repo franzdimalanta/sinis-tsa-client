@@ -9,9 +9,9 @@ function getOrderItemKey(item: OrderItem) {
 }
 
 export default function OrderSummary({ order }: { order: OrderTotals }) {
-  return <div className="space-y-5">
+  return <div className="order-summary space-y-5">
     <ul className="space-y-4">
-      {order.items.map(item => <li key={getOrderItemKey(item)} className="rounded-xl border border-stone-200 bg-white p-4">
+      {order.items.map(item => <li key={getOrderItemKey(item)} className="order-summary-item rounded-xl border border-stone-200 bg-white p-4">
         <h3 className="font-semibold break-words">{item.name}</h3>
         <p className="mt-1 text-sm capitalize text-stone-600">{item.size} / Quantity: {item.quantity}</p>
         <div className="mt-3 flex flex-wrap justify-between gap-2 text-sm">
@@ -21,8 +21,8 @@ export default function OrderSummary({ order }: { order: OrderTotals }) {
     </ul>
     <dl className="space-y-3">
       <div className="flex flex-wrap justify-between gap-2"><dt>Subtotal</dt><dd>{formatPeso(order.subtotal)}</dd></div>
-      <div className="flex flex-wrap justify-between gap-2"><dt>Discount</dt><dd>{order.discountAmount > 0 ? '-' : ''}{formatPeso(order.discountAmount)}</dd></div>
-      <div className="flex flex-wrap justify-between gap-2 border-t border-stone-300 pt-3 text-lg font-semibold"><dt>Total</dt><dd>{formatPeso(order.total)}</dd></div>
+      <div className="order-summary-discount flex flex-wrap justify-between gap-2"><dt>Discount</dt><dd>{order.discountAmount > 0 ? '-' : ''}{formatPeso(order.discountAmount)}</dd></div>
+      <div className="order-summary-total flex flex-wrap justify-between gap-2 border-t border-stone-300 pt-3 text-lg font-semibold"><dt>Total</dt><dd>{formatPeso(order.total)}</dd></div>
     </dl>
   </div>
 }

@@ -8,6 +8,7 @@ import LoadingState from '../common/LoadingState'
 import ErrorState from '../common/ErrorState'
 import EmptyState from '../common/EmptyState'
 import MenuItemForm from './MenuItemForm'
+import ManagementPageHeader from './ManagementPageHeader'
 export default function MenuItemEditor({ id }: { id?: string }) {
  const navigate = useNavigate()
  const load = useCallback(async (signal: AbortSignal) => {
@@ -19,7 +20,7 @@ export default function MenuItemEditor({ id }: { id?: string }) {
   if (id) await updateMenuItem(id, input); else await createMenuItem(input)
   navigate('/manage/menu', { state: { message: id ? 'Menu item updated successfully.' : 'Menu item created successfully.' } })
  }
- return <div className="space-y-6"><Link to="/manage/menu" className="underline underline-offset-4 focus-visible:outline-2">Back to menu management</Link><h1 className="text-3xl font-semibold">{id ? 'Edit menu item' : 'Add menu item'}</h1>
+ return <div className="space-y-6"><Link to="/manage/menu" className="underline underline-offset-4 focus-visible:outline-2">Back to menu management</Link><ManagementPageHeader title={id ? 'Edit menu item' : 'Add menu item'} description="Configure customer-facing information, visibility, and size pricing." />
   {loading ? <LoadingState message="Loading menu form..." /> : error ? <ErrorState message={error} onRetry={refresh} /> : data && data.categories.length ? <MenuItemForm categories={data.categories} item={data.item} onSave={save} /> : <EmptyState message="No categories are available. A category is required before adding a menu item." />}
  </div>
 }

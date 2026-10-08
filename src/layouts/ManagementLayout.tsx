@@ -27,7 +27,7 @@ export default function ManagementLayout() {
           </Link>
         </div>
       </aside>
-      <main className="min-w-0 px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
+      <main className="management-workspace min-w-0 px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
         <div className="mx-auto min-w-0 max-w-6xl"><Outlet /></div>
       </main>
     </div>

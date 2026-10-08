@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./management.css";
 
 @theme {
   --color-background: #FFF7ED;

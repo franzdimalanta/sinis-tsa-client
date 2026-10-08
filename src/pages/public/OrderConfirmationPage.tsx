@@ -6,6 +6,7 @@ import { getOrderError } from '../../utils/orderError'
 import OrderSummary from '../../components/orders/OrderSummary'
 import LoadingState from '../../components/common/LoadingState'
 import ErrorState from '../../components/common/ErrorState'
+import { statusStyles } from '../../utils/orderWorkflow'
 
 function ConfirmationDetails({ id }: { id: string }) {
   const [order, setOrder] = useState<Order | null>(null)
@@ -31,7 +32,7 @@ function ConfirmationDetails({ id }: { id: string }) {
       <div><dt className="text-sm text-stone-500">Order ID</dt><dd className="mt-1 break-all text-sm" title={order._id}>{order._id}</dd></div>
       <div><dt className="text-sm text-stone-500">Customer</dt><dd className="mt-1 break-words">{order.customerName}</dd></div>
       <div><dt className="text-sm text-stone-500">Order type</dt><dd className="mt-1 capitalize">{order.orderType}</dd></div>
-      <div><dt className="text-sm text-stone-500">Status</dt><dd className="mt-1 inline-block rounded-full bg-amber-100 px-3 py-1 text-sm font-medium capitalize">{order.status}</dd></div>
+      <div><dt className="text-sm text-stone-500">Status</dt><dd className={'mt-1 inline-block rounded-full px-3 py-1 text-sm font-medium capitalize ' + statusStyles[order.status]}>{order.status}</dd></div>
     </dl>
     <div className="mt-8"><h2 className="mb-5 font-editorial text-2xl text-primary">Your order</h2><OrderSummary order={order} /></div>
     {order.notes && <div className="mt-6"><h2 className="font-semibold">Notes</h2><p className="mt-2 break-words whitespace-pre-wrap text-stone-600">{order.notes}</p></div>}

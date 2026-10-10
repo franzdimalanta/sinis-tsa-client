@@ -9,7 +9,7 @@ type NavigationLinkProps = {
 export default function NavigationLink({ to, label, end = false }: NavigationLinkProps) {
   return (
     <NavLink to={to} end={end} className={({ isActive }) => `brew-nav-link${isActive ? ' is-active' : ''}`}>
-      {label}
+      <span className="brew-nav-label">{label}</span>
     </NavLink>
   )
 }

@@ -2,6 +2,16 @@
 @import "./management.css";
 
 @theme {
+  --color-cream: #F7F3E8;
+  --color-forest: #244B3B;
+  --color-forest-nav: #3E6653;
+  --color-header-green: #526B3F;
+  --color-header-interaction: #405432;
+  --color-espresso: #362820;
+  --color-matcha: #A8B982;
+  --color-butter: #EBCB75;
+  --font-brand: "Manrope", sans-serif;
+  --font-wordmark: "Paytone One", sans-serif;
   --color-background: #FFF7ED;
   --color-surface: #FFFFFF;
   --color-surface-warm: #F0E6D6;
@@ -25,6 +35,123 @@
   --color-stone-500: #706258;
   --color-stone-600: #65574E;
   --color-stone-900: #302A26;
+}
+
+/* Brand styling stays within the customer layout; management retains its theme. */
+.sinis-customer { font-family: var(--font-brand); }
+.sinis-customer :focus-visible { outline-color: var(--color-forest); }
+.sinis-footer :focus-visible { outline-color: #FFFFFF; }
+.sinis-footer-hover { color: #FFFFFF; transition: color 180ms ease; }
+.sinis-footer-hover:hover { color: #E8DCC4; }
+.sinis-footer-social { position: relative; isolation: isolate; color: #FFFFFF; border: 0; background: transparent; }
+.sinis-footer-social::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: rgba(232, 220, 196, 0.16);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.sinis-footer-social:hover::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .sinis-footer-hover { transition: none; }
+  .sinis-footer-social::before { transition: none; }
+}
+/* Leave clearance when skip links or keyboard navigation scroll content into view. */
+.sinis-customer main,
+.sinis-customer main :is([id], :focus) {
+  scroll-margin-top: calc(var(--customer-header-height, 9rem) + 1rem);
+}
+.sinis-header .brew-nav-link {
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: transparent;
+  transition: color 180ms ease;
+}
+.sinis-header .brew-nav-label { position: relative; }
+.sinis-header .brew-nav-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.sinis-header .brew-nav-link:hover { background: transparent; color: #FFFFFF; }
+.sinis-header .brew-nav-link.is-active {
+  background: transparent;
+  color: #E8DCC4;
+}
+.sinis-header .brew-nav-link.is-active:hover { color: #E8DCC4; }
+.sinis-header .brew-nav-link:not(.is-active):hover .brew-nav-label::after { opacity: 1; }
+.sinis-header :focus-visible { outline-color: #FFFFFF; }
+@media (prefers-reduced-motion: reduce) {
+  .sinis-header .brew-nav-link,
+  .sinis-header .brew-nav-label::after { transition: none; }
+}
+.sinis-hero h1 { font-family: var(--font-wordmark); font-weight: 400; }
+.sinis-hero {
+  min-height: calc(100svh - var(--customer-header-height, 9rem));
+  padding-block: clamp(2rem, 5svh, 4rem);
+}
+.sinis-hero :focus-visible { outline-color: var(--color-header-green); }
+.sinis-marquee-track { animation: sinis-marquee-scroll 60s linear infinite; }
+.sinis-marquee-static { display: none; }
+.sinis-marquee :focus-visible { outline-color: #FFFFFF; }
+.sinis-review-track { animation: sinis-marquee-scroll var(--review-scroll-duration, 34s) linear infinite; }
+.sinis-reviews :focus-visible { outline-color: var(--color-header-green); }
+.sinis-reviews .sinis-review-viewport:focus-visible { outline-color: var(--color-cream); }
+@media (prefers-reduced-motion: reduce) {
+  .sinis-review-track { animation: none; width: 100%; display: block; }
+  .sinis-review-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-right: 0; }
+  .sinis-review-card { width: 100%; min-width: 0; aspect-ratio: auto; }
+  .sinis-review-card img { height: auto; aspect-ratio: 4 / 3; }
+  .sinis-review-viewport { max-width: 100%; }
+  .sinis-review-duplicate, .sinis-review-toggle { display: none; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 639px) {
+  .sinis-review-group { grid-template-columns: minmax(0, 1fr); }
+}
+@keyframes sinis-marquee-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .sinis-marquee-track { animation: none; }
+  .sinis-marquee > div, .sinis-marquee-toggle { display: none; }
+  .sinis-marquee-static { display: block; }
+}
+.sinis-highlights :focus-visible { outline-color: var(--color-cream); }
+.sinis-highlight-overlay {
+  background: rgba(247, 243, 232, 0.65);
+  transform: translateX(0);
+  transition: transform 300ms ease-out;
+}
+.sinis-highlight-caption { background: rgba(247, 243, 232, 0.88); }
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .sinis-highlight-overlay { transform: translateX(-100%); }
+  .sinis-highlight-card:is(:hover, :focus-within) .sinis-highlight-overlay { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sinis-highlight-card .sinis-highlight-overlay { transform: none; transition: none; }
+}
+.drink-slide-in-right { animation: drink-in-right 500ms ease-in-out both; }
+.drink-slide-out-left { animation: drink-out-left 500ms ease-in-out both; }
+.drink-slide-in-left { animation: drink-in-left 500ms ease-in-out both; }
+.drink-slide-out-right { animation: drink-out-right 500ms ease-in-out both; }
+@keyframes drink-in-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes drink-out-left { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes drink-in-left { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes drink-out-right { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .drink-slide-in-right, .drink-slide-out-left,
+  .drink-slide-in-left, .drink-slide-out-right { animation: none; }
+  .drink-slide-out-left, .drink-slide-out-right { visibility: hidden; }
 }
 
 @layer base {

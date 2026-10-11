@@ -1,5 +1,5 @@
-﻿import { useEffect, useLayoutEffect } from 'react'
-import { Link, useNavigationType } from 'react-router-dom'
+﻿import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import useScrollReveal from '../../hooks/useScrollReveal'
 import { developerProfiles } from '../../components/about/developerProfiles'
 import { signatureAssets } from '../../components/menu/signatureAssets'
@@ -16,15 +16,11 @@ const values = [
 
 export default function AboutPage() {
   const revealRef = useScrollReveal({ distance: 18 })
-  const navigationType = useNavigationType()
   useEffect(() => {
     const previous = document.title
     document.title = 'About Us | SINIS TSA'
     return () => { document.title = previous }
   }, [])
-  useLayoutEffect(() => {
-    if (navigationType !== 'POP') window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }, [navigationType])
   return <div ref={revealRef} className="about-page">
     <section className="about-hero hero-surface" aria-labelledby="about-title">
       <HeroMatchaTexture />
@@ -54,7 +50,7 @@ export default function AboutPage() {
     </section>
     <section className="about-team" aria-labelledby="about-team-title"><div className="about-width about-section">
       <div data-scroll-reveal className="about-section-heading"><p className="about-eyebrow">MEET THE DEVELOPERS</p><h2 className="customer-heading" id="about-team-title">The humans behind the mischief.</h2><p>Two Pokémon fans. Many ideas. A suspicious number of browser tabs.</p></div>
-      <div className="about-developers">{developerProfiles.map((profile, index) => <div key={profile.initials} data-scroll-reveal data-reveal-delay={index * 90} className="about-developer-reveal"><article className="about-developer">
+      <div className="about-developers">{developerProfiles.map((profile, index) => <div key={profile.initials} data-scroll-reveal data-reveal-delay={index * 90} className="about-developer-reveal"><article className="about-developer" data-theme={profile.theme}>
         <div className="about-portrait" style={{ aspectRatio: profile.imageAspectRatio }}>{profile.imageSrc ? <img className="about-portrait-image" src={profile.imageSrc} alt={profile.imageAlt ?? `Portrait of ${profile.name}`} style={{ objectPosition: profile.imagePosition ?? 'center' }} /> : <div className="about-portrait-placeholder"><img src={creamEye} alt="" /><span aria-hidden="true">{profile.initials}</span><p>Photo coming soon</p></div>}</div>
         <div className="about-developer-copy"><h3>{profile.name}</h3><p className="about-developer-role">{profile.role}</p><p>{profile.bio}</p><p className="about-developer-footer">{profile.footer}</p></div>
       </article></div>)}</div>

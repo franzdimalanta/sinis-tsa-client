@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { getMenuBackground } from './utils/menuModalRoute'
 import ProductQuickView from './components/menu/ProductQuickView'
+import ScrollToTop from './components/navigation/ScrollToTop'
 import PublicLayout from './layouts/PublicLayout'
 import ManagementLayout from './layouts/ManagementLayout'
 import NotFoundPage from './pages/NotFoundPage'
@@ -25,6 +26,8 @@ function AppRoutes() {
   const background = getMenuBackground(location)
   return (
     <>
+      {/* Quick views retain the menu's location key and scroll position. */}
+      <ScrollToTop location={background ?? location} />
       <Routes location={background ?? location}>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<LandingPage />} />

@@ -46,6 +46,8 @@
 .about-developer-copy p { margin: 0 0 24px; }
 .about-page .about-developer-role { font-size: 14px; font-weight: 700; color: #526B3F; margin-bottom: 20px; }
 .about-page .about-developer-footer { margin: auto 0 0; padding-top: 20px; border-top: 1px solid #526B3F26; font-size: 14px; line-height: 1.6; }
+.about-page .about-developer[data-theme='violet'] .about-developer-copy h3,
+.about-page .about-developer[data-theme='violet'] .about-developer-role { color: #6B3A8E; }
 .about-closing { text-align: center; }
 .about-closing img { width: 66px; height: 54px; object-fit: contain; margin: 0 auto 24px; }
 .about-closing h2 { max-width: 750px; margin-inline: auto; }

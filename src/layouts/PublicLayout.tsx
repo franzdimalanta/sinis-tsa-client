@@ -7,12 +7,29 @@ import HomeWordmarkLink from '../components/navigation/HomeWordmarkLink'
 import brandLogo from '../assets/sinis-tsa-logo.svg'
 
 export default function PublicLayout() {
-  const { totalQuantity } = useCart()
+  const { totalQuantity, additionRevision } = useCart()
+  const cartDotRef = useRef<HTMLSpanElement>(null)
+  const previousAddition = useRef(additionRevision)
   const layoutRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLElement>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
-  const isHomepage = useLocation().pathname === '/'
+  const pathname = useLocation().pathname
+  const isHomepage = pathname === '/'
+  const isMenuPage = pathname === '/menu'
+
+  useEffect(() => {
+    const added = additionRevision > previousAddition.current
+    previousAddition.current = additionRevision
+    const dot = cartDotRef.current
+    if (!added || !dot || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const pulse = dot.animate([
+      { transform: 'scale(1)', opacity: 1 },
+      { transform: 'scale(1.35)', opacity: .8, offset: .45 },
+      { transform: 'scale(1)', opacity: 1 },
+    ], { duration: 420, easing: 'ease-in-out', iterations: 1 })
+    return () => pulse.cancel()
+  }, [additionRevision])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -64,18 +81,21 @@ export default function PublicLayout() {
           }} className={`${menuOpen ? 'flex' : 'hidden'} absolute inset-x-0 top-full max-h-[calc(100svh-var(--customer-header-height,5rem))] flex-col items-start gap-1 overflow-y-auto border-t border-white/20 bg-header-green px-5 py-3 sm:px-8 md:static md:flex md:max-h-none md:flex-row md:flex-wrap md:items-center md:overflow-visible md:border-0 md:bg-transparent md:p-0`}>
             <NavigationLink to="/" label="Home" end />
             <NavigationLink to="/menu" label="Menu" />
-            <NavLink to="/cart" className={({ isActive }) => `brew-nav-link gap-2${isActive ? ' is-active' : ''}`}>
+            <NavLink to="/cart" aria-label={`Cart (${totalQuantity} ${totalQuantity === 1 ? 'item' : 'items'})`} className={({ isActive }) => `brew-nav-link gap-2${isActive ? ' is-active' : ''}`}>
+              <span className="relative inline-flex shrink-0" aria-hidden="true">
               <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 3h2l3 12h11l2-9H6" />
                 <circle cx="9" cy="20" r="1" />
                 <circle cx="18" cy="20" r="1" />
               </svg>
+              {totalQuantity > 0 && <span ref={cartDotRef} className="pointer-events-none absolute -top-0.5 -right-0.5 h-[7px] w-[7px] rounded-full bg-butter" />}
+              </span>
               <span className="brew-nav-label">{`Cart (${totalQuantity})`}</span>
             </NavLink>
           </nav>
         </div>
       </header>
-      <main id="customer-content" tabIndex={-1} className={`mx-auto w-full min-w-0 flex-1 ${isHomepage ? 'pb-8 sm:pb-10' : 'max-w-6xl px-5 py-8 sm:px-8 sm:py-10'}`}>
+      <main id="customer-content" tabIndex={-1} className={`mx-auto w-full min-w-0 flex-1 ${isHomepage ? 'pb-8 sm:pb-10' : isMenuPage ? '' : 'max-w-6xl px-5 py-8 sm:px-8 sm:py-10'}`}>
         <Outlet />
       </main>
       <CustomerFooter />

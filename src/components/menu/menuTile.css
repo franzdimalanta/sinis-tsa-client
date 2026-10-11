@@ -1,0 +1,17 @@
+.menu-tile { display: flex; flex-direction: column; min-width: 0; background: transparent; font-family: Manrope, sans-serif; }
+.menu-tile-visual { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 1rem; }
+.menu-tile-image { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; transition: transform 200ms ease; }
+.menu-tile-placeholder { max-width: 280px; }
+.menu-tile-details { display: flex; flex-direction: column; flex: 1; padding: .75rem .25rem 0; }
+.menu-tile-category { margin-bottom: .5rem; color: #526B3F; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.menu-tile-name { color: #526B3F; font-family: Manrope, sans-serif; font-weight: 700; font-size: 1.5rem; line-height: 1.3; overflow-wrap: anywhere; }
+.menu-tile-description { margin-top: .625rem; color: #706258; font-size: .875rem; line-height: 1.75; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.menu-tile-purchase { margin-top: auto; padding-top: 1rem; }
+.menu-tile-price { color: #362820; font-size: 1.125rem; font-weight: 700; }
+.menu-tile-presentation { margin-top: auto; padding-top: 1rem; color: #706258; font-size: .75rem; }
+.menu-tile-sizes { margin-top: .25rem; color: #706258; font-size: .75rem; line-height: 1.5; text-transform: capitalize; }
+.menu-tile-action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 1rem; border-radius: .5rem; padding: .5rem 1.25rem; background: #526B3F; color: #F7F3E8; font-size: .875rem; font-weight: 700; text-decoration: none; }
+.menu-tile-action:hover { background: #405432; }
+.menu-tile-action:focus-visible { outline: 3px solid #526B3F; outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) { .menu-tile:hover .menu-tile-image { transform: scale(1.02); } }
+@media (prefers-reduced-motion: reduce) { .menu-tile-image { transition: none; } .menu-tile:hover .menu-tile-image { transform: none; } }

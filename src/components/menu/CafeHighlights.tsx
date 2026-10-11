@@ -25,7 +25,7 @@ export default function CafeHighlights() {
         ))}
       </div>
       <div data-scroll-reveal className="mt-9 flex justify-center lg:mt-12">
-        <button type="button" disabled title="About destination pending" className="inline-flex min-h-11 items-center justify-center rounded-full bg-cream px-7 py-3 text-sm font-semibold text-header-green hover:bg-white focus-visible:outline-cream focus-visible:outline-offset-4">Know More About Us</button>
+        <button type="button" disabled title="About destination pending" className="sinis-about-button inline-flex min-h-11 items-center justify-center rounded-full px-7 py-3 text-sm font-semibold focus-visible:outline-cream focus-visible:outline-offset-4">Know More About Us</button>
       </div>
       </div>
     </section>

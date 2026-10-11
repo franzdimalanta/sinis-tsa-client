@@ -6,7 +6,11 @@ import { CartContext } from './cartContext'
 import { cartStorageKey, isCartItem, loadCart } from '../utils/cartStorage'
 
 export default function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(loadCart)
+  const [cart, setCart] = useState(() => ({ items: loadCart(), additionRevision: 0 }))
+  const { items, additionRevision } = cart
+  function setItems(update: CartItem[] | ((current: CartItem[]) => CartItem[])) {
+    setCart(current => ({ ...current, items: typeof update === 'function' ? update(current.items) : update }))
+  }
 
   useEffect(() => {
     try {
@@ -18,16 +22,17 @@ export default function CartProvider({ children }: { children: ReactNode }) {
 
   function addItem(item: CartItem) {
     if (!isCartItem(item)) return false
-    setItems(current => {
+    setCart(currentCart => {
+      const current = currentCart.items
       const existing = current.find(line => line.menuItemId === item.menuItemId && line.size === item.size)
       const combined = existing ? { ...item, quantity: existing.quantity + item.quantity } : { ...item }
-      if (!isCartItem(combined)) return current
+      if (!isCartItem(combined)) return currentCart
       const next = existing
         ? current.map(line => line === existing ? combined : line)
         : [...current, combined]
       if (!Number.isSafeInteger(next.reduce((sum, line) => sum + line.quantity, 0)) ||
-          !Number.isFinite(next.reduce((sum, line) => sum + line.unitPrice * line.quantity, 0))) return current
-      return next
+          !Number.isFinite(next.reduce((sum, line) => sum + line.unitPrice * line.quantity, 0))) return currentCart
+      return { items: next, additionRevision: currentCart.additionRevision + 1 }
     })
     return true
   }
@@ -50,6 +55,6 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
   const subtotal = Math.round((items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0) + Number.EPSILON) * 100) / 100
 
-  return <CartContext.Provider value={{ items, totalQuantity, subtotal, addItem, removeItem,
+  return <CartContext.Provider value={{ items, totalQuantity, subtotal, additionRevision, addItem, removeItem,
     updateQuantity, clearCart: () => setItems([]) }}>{children}</CartContext.Provider>
 }

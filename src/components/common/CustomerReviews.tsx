@@ -33,8 +33,8 @@ export default function CustomerReviews() {
     <section aria-labelledby="customer-reviews-heading" aria-describedby="sample-review-label" className="sinis-reviews w-full min-w-0 bg-cream" onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => {
       if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
     }}>
-      <div className="mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
-        <h2 data-scroll-reveal id="customer-reviews-heading" className="font-brand text-center text-3xl leading-tight font-extrabold tracking-tight text-header-green sm:text-4xl lg:text-5xl">CUSTOMER REVIEWS</h2>
+      <div className="w-full min-w-0 px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <h2 data-scroll-reveal id="customer-reviews-heading" className="mx-auto w-full font-brand text-center text-3xl leading-tight font-extrabold tracking-tight text-header-green sm:text-4xl lg:text-5xl">CUSTOMER REVIEWS</h2>
         <div className="mt-4 text-center text-sm" aria-hidden="true">&nbsp;</div>
         <p id="sample-review-label" className="sr-only">Sample reviews for layout preview.</p>
       </div>

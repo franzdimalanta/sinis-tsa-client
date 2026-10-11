@@ -127,6 +127,9 @@
   .sinis-marquee-static { display: block; }
 }
 .sinis-highlights :focus-visible { outline-color: var(--color-cream); }
+.sinis-about-button { background-color: #F7F3E8; color: #526B3F; transition: background-color 180ms ease, color 180ms ease; }
+.sinis-about-button:hover { background-color: #E8DCC4; color: #526B3F; }
+@media (prefers-reduced-motion: reduce) { .sinis-about-button { transition: none; } }
 .sinis-highlight-overlay {
   background: rgba(247, 243, 232, 0.65);
   transform: translateX(0);

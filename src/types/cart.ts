@@ -10,6 +10,7 @@ export interface CartItem {
 }
 
 export interface CartState {
+  additionRevision: number
   items: CartItem[]
   totalQuantity: number
   subtotal: number

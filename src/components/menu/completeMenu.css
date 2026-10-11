@@ -1,0 +1,26 @@
+.complete-menu-section { background: #F7F3E8; padding-block: 3rem; }
+.complete-menu-intro, .complete-menu-products, .complete-menu-navigation-inner { width: 100%; max-width: 1152px; margin-inline: auto; padding-inline: 1.25rem; }
+.complete-menu-intro { text-align: center; margin-bottom: 2rem; }
+.complete-menu-intro h2 { font-family: Manrope, sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.2; letter-spacing: -.035em; color: #526B3F; }
+.complete-menu-intro p { max-width: 36rem; margin: 1rem auto 0; line-height: 1.75; }
+.complete-menu-sentinel { height: 1px; margin-bottom: -1px; }
+.complete-menu-navigation { position: sticky; top: var(--customer-header-height, 5rem); z-index: 20; background: #F7F3E8; border-bottom: 1px solid transparent; }
+.complete-menu-navigation.is-stuck { border-bottom-color: #526B3F33; }
+.complete-menu-navigation-inner { padding-block: .5rem; }
+.complete-menu-navigation-title { margin: 0 0 .125rem; font-family: Manrope, sans-serif; font-weight: 800; font-size: .75rem; letter-spacing: .14em; color: #526B3F; }
+.complete-menu-category-row { display: flex; gap: .5rem; min-width: 0; overflow-x: auto; padding: 6px; margin-inline: -6px; scrollbar-width: thin; scrollbar-color: #526B3F66 transparent; }
+.complete-menu-category { flex: 0 0 auto; min-height: 44px; border: 1px solid #526B3F55; border-radius: .5rem; padding: .5rem 1.125rem; color: #526B3F; background: transparent; font-size: .875rem; font-weight: 600; white-space: nowrap; }
+.complete-menu-category:hover { background: #526B3F0D; }
+.complete-menu-category[aria-pressed="true"] { background: #526B3F; border-color: #526B3F; color: #F7F3E8; }
+.complete-menu-category[aria-pressed="true"]:hover { background: #405432; }
+.complete-menu-navigation :focus-visible { outline: 2px solid #526B3F; outline-offset: 3px; }
+.complete-menu-products { margin-top: 2rem; }
+.menu-reveal-tile { display: flex; min-width: 0; }
+.menu-reveal-tile > .menu-tile { width: 100%; }
+.complete-menu-group + .complete-menu-group { margin-top: 3.5rem; }
+.complete-menu-group-title { margin-bottom: 1.25rem; font-family: Manrope, sans-serif; font-weight: 800; font-size: 1.5rem; color: #526B3F; text-transform: uppercase; }
+.sinis-customer .complete-menu-products :is([id], :focus) { scroll-margin-top: calc(var(--customer-header-height, 5rem) + var(--complete-menu-nav-height, 6rem) + 1rem); }
+@media (min-width: 640px) {
+  .complete-menu-section { padding-block: 4rem; }
+  .complete-menu-intro, .complete-menu-products, .complete-menu-navigation-inner { padding-inline: 2rem; }
+}

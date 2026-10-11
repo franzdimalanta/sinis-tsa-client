@@ -1,0 +1,55 @@
+.signature-showcase {
+  --signature-drink-height: clamp(160px, calc((100svh - var(--customer-header-height, 5rem)) * .36), 350px);
+  background: #526B3F; color: #F7F3E8; text-align: center;
+  box-sizing: border-box;
+  min-height: calc(100svh - var(--customer-header-height, 5rem));
+  display: flex; flex-direction: column; justify-content: flex-start;
+  padding: clamp(1rem, 3svh, 2rem) clamp(1.25rem, 3vw, 3rem);
+}
+.signature-showcase > * { flex-shrink: 0; }
+.signature-heading-entrance { display: block; }
+.signature-visual-entrance { width: 100%; }
+.signature-showcase h1 { margin: 0; font-family: Manrope, sans-serif; font-weight: 800; font-size: clamp(3.375rem, min(6.75vw, 10.125svh), 5.0625rem); line-height: 1.1; letter-spacing: -.05em; }
+.signature-showcase h2 { margin: 0 0 20px; font-family: Manrope, sans-serif; font-size: clamp(.95625rem, 1.6875vw, 1.125rem); font-weight: 800; letter-spacing: .22em; }
+.signature-carousel { width: 100%; max-width: 1150px; margin: auto; padding-top: clamp(1.5rem, 4svh, 3rem); }
+.signature-stage { position: relative; touch-action: pan-y; }
+.signature-visuals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr); align-items: center; gap: clamp(1.25rem, 3vw, 2.5rem); padding: 0 clamp(3rem, 5vw, 4rem); }
+.signature-drink-image { display: block; width: 100%; height: auto; max-height: var(--signature-drink-height); object-fit: contain; }
+.signature-selected { display: grid; place-items: center; min-height: var(--signature-drink-height); }
+.signature-preview { --signature-drink-height: clamp(110px, calc((100svh - var(--customer-header-height, 5rem)) * .23), 215px); width: 215px; max-width: 100%; min-height: var(--signature-drink-height); opacity: .65; transform: scale(.85); }
+.signature-preview:first-child { justify-self: start; }
+.signature-preview:last-child { justify-self: end; }
+.signature-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; width: 48px; height: 48px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: #F7F3E8; transition: opacity 150ms ease; }
+.signature-arrow:hover { opacity: .7; }
+.signature-arrow-prev { left: clamp(0px, 2vw, 24px); }
+.signature-arrow-next { right: clamp(0px, 2vw, 24px); }
+.signature-arrow svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.signature-showcase :focus-visible { outline: 3px solid #F7F3E8; outline-offset: 5px; }
+.signature-details { max-width: 560px; margin: .5rem auto 0; }
+.signature-details h3 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; line-height: 1.25; }
+.signature-description { max-width: 42ch; margin: .375rem auto 0; line-height: 1.6; }
+.signature-view { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; margin-top: .5rem; padding: .5rem 2rem; border-radius: 999px; background: #F7F3E8; color: #354729; font-weight: 800; text-decoration: none; }
+.signature-view:hover { background: #E8DCC4; }
+.signature-browse { align-self: center; margin-top: clamp(1rem, 3svh, 2rem); margin-bottom: clamp(1rem, 3svh, 2rem); }
+.signature-dots { display: flex; flex-wrap: wrap; justify-content: center; margin-top: .25rem; }
+.signature-dot { display: grid; place-items: center; width: 14px; height: 44px; padding: 0; border: 0; background: transparent; }
+.signature-dot span { width: 6px; height: 6px; border-radius: 50%; background: #F7F3E8; opacity: .4; transition: opacity 200ms ease; }
+.signature-dot[aria-current="true"] span { opacity: 1; }
+.signature-dot:hover span { opacity: .7; }
+.signature-dot[aria-current="true"]:hover span { opacity: 1; }
+.signature-enter .signature-drink-image { animation: signature-enter 350ms ease-out both; }
+@keyframes signature-enter { from { opacity: .65; transform: translateX(var(--signature-offset)); } to { opacity: 1; transform: translateX(0); } }
+@media (max-width: 639px) {
+  .signature-showcase { --signature-drink-height: clamp(180px, calc((100svh - var(--customer-header-height, 5rem)) * .36), 270px); padding-block: 1.25rem; }
+  .signature-visuals { display: block; padding: 0 3rem; }
+  .signature-preview { display: none; }
+  .signature-arrow { width: 44px; height: 44px; }
+  .signature-arrow-prev { left: 0; }
+  .signature-arrow-next { right: 0; }
+  .signature-details { margin-top: .5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signature-enter .signature-drink-image { animation: none; }
+  .signature-arrow { transition: none; }
+  .signature-dot span { transition: none; }
+}

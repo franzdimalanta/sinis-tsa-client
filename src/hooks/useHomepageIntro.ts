@@ -1,9 +1,11 @@
 import { useLayoutEffect, useRef, useState, type RefObject } from 'react'
 
-const sessionKey = 'sinis-tsa-intro-seen'
+// A refresh creates a new runtime. Client-side navigation keeps this marker.
+const loadedOnHomepage = typeof window !== 'undefined' && window.location.pathname === '/'
+let homepageIntroConsumed = false
 function shouldPlay() {
   try {
-    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches && sessionStorage.getItem(sessionKey) !== '1' && typeof Element.prototype.animate === 'function'
+    return loadedOnHomepage && !homepageIntroConsumed && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof Element.prototype.animate === 'function'
   } catch { return false }
 }
 
@@ -14,6 +16,7 @@ export default function useHomepageIntro(pageRef: RefObject<HTMLDivElement | nul
   const overlayRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
+    homepageIntroConsumed = true
     if (!play) return
     const overlay = overlayRef.current
     const page = pageRef.current
@@ -44,7 +47,6 @@ export default function useHomepageIntro(pageRef: RefObject<HTMLDivElement | nul
     const onMotion = () => { if (media.matches) finish() }
     try {
       if (!overlay || !page || !customer || media.matches) throw new Error('Intro unavailable')
-      sessionStorage.setItem(sessionKey, '1')
       document.body.style.overflow = 'hidden'
       document.documentElement.style.overflow = 'hidden'
       customer.inert = true

@@ -1,4 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { getMenuBackground } from './utils/menuModalRoute'
+import ProductQuickView from './components/menu/ProductQuickView'
 import PublicLayout from './layouts/PublicLayout'
 import ManagementLayout from './layouts/ManagementLayout'
 import NotFoundPage from './pages/NotFoundPage'
@@ -17,10 +19,12 @@ import InventoryPage from './pages/management/InventoryPage'
 import RecipeManagementPage from './pages/management/RecipeManagementPage'
 import SalesAnalyticsPage from './pages/management/SalesAnalyticsPage'
 
-export default function App() {
+function AppRoutes() {
+  const location = useLocation()
+  const background = getMenuBackground(location)
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <Routes location={background ?? location}>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<LandingPage />} />
           <Route path="menu" element={<MenuPage />} />
@@ -42,6 +46,8 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      {background && <Routes><Route path="/menu/:id" element={<ProductQuickView />} /></Routes>}
+    </>
   )
 }
+export default function App() { return <BrowserRouter><AppRoutes /></BrowserRouter> }

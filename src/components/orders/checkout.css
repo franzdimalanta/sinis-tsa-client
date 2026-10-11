@@ -39,4 +39,11 @@
 .checkout-summary .checkout-primary { margin-top: 1.25rem; }
 .checkout-request-error { margin-top: 1.25rem; padding: 1rem; border-radius: .75rem; background: #8B39300D; color: #8B3930; font-size: .875rem; line-height: 1.7; }
 .checkout-page :focus-visible { outline: 3px solid #526B3F; outline-offset: 3px; }
+.checkout-order-type, .checkout-fields > div { min-width: 0; }
+.checkout-field-error, .checkout-request-error, .checkout-review-note { overflow-wrap: anywhere; }
+@media (max-width: 419px) {
+  .checkout-panel { padding: 1.125rem; }
+  .checkout-type-options { grid-template-columns: 1fr; }
+  .checkout-layout { gap: 1.5rem; margin-top: 1.75rem; }
+}
 @media (min-width: 1024px) { .checkout-layout { grid-template-columns: minmax(0, 1fr) 22rem; } .checkout-summary.can-stick { position: sticky; top: calc(var(--customer-header-height, 5rem) + 1rem); } }

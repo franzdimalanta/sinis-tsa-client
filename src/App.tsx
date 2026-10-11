@@ -5,6 +5,7 @@ import PublicLayout from './layouts/PublicLayout'
 import ManagementLayout from './layouts/ManagementLayout'
 import NotFoundPage from './pages/NotFoundPage'
 import LandingPage from './pages/public/LandingPage'
+import AboutPage from './pages/public/AboutPage'
 import MenuPage from './pages/public/MenuPage'
 import MenuItemPage from './pages/public/MenuItemPage'
 import CartPage from './pages/public/CartPage'
@@ -27,6 +28,7 @@ function AppRoutes() {
       <Routes location={background ?? location}>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<LandingPage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="menu" element={<MenuPage />} />
           <Route path="menu/:id" element={<MenuItemPage />} />
           <Route path="cart" element={<CartPage />} />

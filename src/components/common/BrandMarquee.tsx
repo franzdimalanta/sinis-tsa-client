@@ -1,6 +1,6 @@
 import marqueeLogo from '../../assets/sinis-tsa-logo.svg'
 
-const message = 'SIP • EXPLORE • LEVEL UP YOUR EVERYDAY'
+const message = 'SIP • STIR UP TROUBLE • LEVEL UP YOUR DAY'
 
 function MarqueeGroup() {
   return (

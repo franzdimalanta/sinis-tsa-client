@@ -1,0 +1,20 @@
+.monster-footsteps { position: absolute; inset: 0; overflow: hidden; pointer-events: none; color: #526B3F; z-index: 0; animation-play-state: paused; }
+.monster-step { position: absolute; width: clamp(90px, 8vw, 140px); opacity: 0; animation: monster-footpress 28s ease-out infinite both; animation-delay: var(--step-delay); animation-play-state: inherit; }
+.monster-step-direction { display: block; }
+.monster-step svg { display: block; width: 100%; height: auto; }
+@keyframes monster-footpress {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.94); }
+  1.2% { opacity: .275; transform: translate(-50%, -50%) scale(1); }
+  6% { opacity: .275; transform: translate(-50%, -50%) scale(1); }
+  11%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+@media (max-width: 639px) {
+  .monster-step { width: clamp(55px, 18vw, 85px); }
+  .monster-step.route-2 { display: none; }
+}
+.monster-footsteps.is-static .monster-step { animation: none; opacity: 0; transform: translate(-50%, -50%); }
+.monster-footsteps.is-static .foot-2 { opacity: .275; }
+@media (prefers-reduced-motion: reduce) {
+  .monster-footsteps .monster-step { animation: none; opacity: 0; transform: translate(-50%, -50%); }
+  .monster-footsteps .foot-2 { opacity: .275; }
+}

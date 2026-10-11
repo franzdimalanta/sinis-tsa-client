@@ -1,0 +1,7 @@
+﻿.hero-surface { position: relative; isolation: isolate; background: #F7F3E8; }
+.hero-matcha-texture { position: absolute; inset: 0; overflow: hidden; pointer-events: none; color: #526B3F; opacity: .055; z-index: -1; }
+.hero-matcha-splatter { display: block; width: 100%; height: 100%; }
+@media (max-width: 639px) {
+  .hero-matcha-texture { opacity: .045; }
+  .hero-texture-detail { display: none; }
+}

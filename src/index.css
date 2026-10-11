@@ -39,6 +39,7 @@
 
 /* Brand styling stays within the customer layout; management retains its theme. */
 .sinis-customer { font-family: var(--font-brand); }
+.sinis-customer .ui-button, .product-quick-view .ui-button { min-height: 44px; }
 .sinis-customer :focus-visible { outline-color: var(--color-forest); }
 .sinis-footer :focus-visible { outline-color: #FFFFFF; }
 .sinis-footer-hover { color: #FFFFFF; transition: color 180ms ease; }
@@ -93,11 +94,33 @@
 .sinis-header .brew-nav-link.is-active:hover { color: #E8DCC4; }
 .sinis-header .brew-nav-link:not(.is-active):hover .brew-nav-label::after { opacity: 1; }
 .sinis-header :focus-visible { outline-color: #FFFFFF; }
+@media (max-width: 767px) {
+  .sinis-header #customer-navigation .brew-nav-link { width: 100%; min-height: 48px; }
+  .sinis-footer > div > div:first-child { align-items: center; text-align: center; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sinis-header #customer-navigation { width: 100%; justify-content: center; }
+  .sinis-header .brew-nav-link { padding-inline: .75rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   .sinis-header .brew-nav-link,
   .sinis-header .brew-nav-label::after { transition: none; }
 }
 .sinis-hero h1 { font-family: var(--font-wordmark); font-weight: 400; }
+.sinis-hero .hero-copy { container-type: inline-size; }
+.sinis-hero .hero-eye { width: clamp(8rem, 24cqw, 10.5rem); height: auto; aspect-ratio: 1; }
+.sinis-hero .hero-wordmark { font-size: clamp(3.25rem, 14.6cqw, 7.125rem); line-height: 1.05; letter-spacing: -.04em; white-space: nowrap; }
+.sinis-hero .hero-tagline { max-width: 22ch; margin-top: clamp(1.5rem, 4cqw, 2rem); font-size: clamp(1.625rem, 5cqw, 1.875rem); font-weight: 800; line-height: 1.18; }
+.sinis-hero .hero-description { max-width: 36ch; margin-top: 1.125rem; font-size: clamp(1.0625rem, 3cqw, 1.125rem); font-weight: 500; line-height: 1.5; }
+.sinis-hero .hero-buttons { margin-top: clamp(1.5rem, 5cqw, 2rem); }
+.sinis-hero .hero-buttons > :is(a, button) { min-height: 48px; padding-block: .75rem; }
+@media (min-width: 640px) {
+  .sinis-hero .hero-eye { min-width: 0; width: clamp(7rem, 24cqw, 10.5rem); }
+}
+@media (min-width: 1024px) {
+  .sinis-hero .hero-tagline { font-size: clamp(2.125rem, 6.4cqw, 2.5rem); }
+  .sinis-hero .hero-description { font-size: clamp(1.25rem, 3.5cqw, 1.375rem); }
+}
 .sinis-hero {
   min-height: calc(100svh - var(--customer-header-height, 9rem));
   padding-block: clamp(2rem, 5svh, 4rem);
@@ -136,12 +159,18 @@
   transition: transform 300ms ease-out;
 }
 .sinis-highlight-caption { background: rgba(247, 243, 232, 0.88); }
+.sinis-highlight-card:focus-visible { outline: 3px solid #F7F3E8; outline-offset: 4px; }
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .sinis-highlight-overlay { transform: translateX(-100%); }
   .sinis-highlight-card:is(:hover, :focus-within) .sinis-highlight-overlay { transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .sinis-highlight-card .sinis-highlight-overlay { transform: none; transition: none; }
+}
+@media (max-width: 639px) {
+  .sinis-highlight-overlay { padding-bottom: 6.5rem; }
+  .sinis-highlights > div { padding-inline: 1.25rem; }
+  .sinis-hero .hero-eye { width: clamp(6.5rem, 30cqw, 8rem); }
 }
 .drink-slide-in-right { animation: drink-in-right 500ms ease-in-out both; }
 .drink-slide-out-left { animation: drink-out-left 500ms ease-in-out both; }

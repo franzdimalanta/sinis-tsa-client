@@ -6,6 +6,8 @@ import { menuProductImages } from '../../components/menu/menuProductImages'
 import CartSummary from '../../components/cart/CartSummary'
 import ClearCartDialog from '../../components/cart/ClearCartDialog'
 import brandLogo from '../../assets/sinis-tsa-logo.svg'
+import ProductThumbnail from '../../components/menu/ProductThumbnail'
+import { productPresentation } from '../../components/menu/productPresentation'
 import '../../components/cart/cartPage.css'
 
 export default function CartPage() {
@@ -19,21 +21,22 @@ export default function CartPage() {
     setFeedback('Your cart has been cleared.')
   }
   return <div className="customer-page cart-page">
-    <h1 ref={headingRef} tabIndex={-1}>YOUR CART</h1>
-    <p className="cart-page-intro">Your next coffee break, one cup at a time.</p>
+    <h1 ref={headingRef} tabIndex={-1} className="customer-heading customer-heading--page">YOUR CART</h1>
+    <p className="cart-page-intro">A little mischief, one cup at a time.</p>
     <p role="status" aria-live="polite" className="cart-page-feedback">{feedback}</p>
     {!items.length ? <div className="cart-empty">
       <div className="cart-empty-logo"><img src={brandLogo} alt="" /></div>
-      <h2>Your next sip is waiting.</h2>
-      <p>Explore the menu and add something you love.</p>
-      <Link to="/menu" className="cart-primary-action">Explore Menu</Link>
+      <h2 className="customer-heading">Your next bad idea tastes good.</h2>
+      <p>Add a little coffee, tea, or sweet trouble.</p>
+      <Link to="/menu" className="cart-primary-action">View Menu</Link>
     </div> : <div className="cart-page-layout">
       <section aria-label="Cart items" className="cart-item-list">
-        {items.map(item => {
+        {items.map(cartItem => {
+          const item = { ...cartItem, name: productPresentation[cartItem.menuItemId]?.name ?? cartItem.name }
           const image = menuProductImages[item.menuItemId]
           return <article key={item.menuItemId + ':' + item.size} className="cart-item">
             <div className={'cart-item-thumbnail' + (!image ? ' is-placeholder' : '')}>
-              <img src={image?.src ?? brandLogo} alt={image?.alt ?? ''} />
+              <ProductThumbnail productId={item.menuItemId} />
             </div>
             <div className="cart-item-details">
               <h2>{item.name}</h2>

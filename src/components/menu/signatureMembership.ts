@@ -4,12 +4,7 @@ import { signatureSlides } from './signatureSlides'
 export const signaturesFilterId = 'presentation:signatures'
 // Membership is independent of database categories and showcase presentation.
 // Only add menuItemId after the actual catalog ID has been confirmed.
-export const signatureMembership: { slideId: string; menuItemId?: string }[] = [
-  { slideId: 'sinister-coffee' },
-  { slideId: 'hyper-macchiato' },
-  { slideId: 'aura-americano' },
-  { slideId: 'sini-tsa-matcha' },
-]
+export const signatureMembership = signatureSlides.map(slide => ({ slideId: slide.id, menuItemId: slide.menuItemId }))
 
 export function getSignatureEntries(items: MenuItem[]) {
   return signatureMembership.flatMap(member => {

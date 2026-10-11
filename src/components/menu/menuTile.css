@@ -15,3 +15,31 @@
 .menu-tile-action:focus-visible { outline: 3px solid #526B3F; outline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) { .menu-tile:hover .menu-tile-image { transform: scale(1.02); } }
 @media (prefers-reduced-motion: reduce) { .menu-tile-image { transition: none; } .menu-tile:hover .menu-tile-image { transform: none; } }
+/* Explicit image tracks prevent intrinsic PNG dimensions moving card titles. */
+.signature-menu-grid { row-gap: .625rem; }
+.signature-menu-grid > .menu-reveal-tile { display: grid; grid-row: span 4; grid-template-rows: subgrid; padding-bottom: 2.5rem; }
+.signature-menu-grid .signature-menu-tile { display: grid; grid-row: span 4; grid-template-rows: subgrid; }
+.signature-menu-tile .menu-tile-details { display: contents; }
+.signature-menu-tile .menu-tile-visual { height: clamp(200px, 22vw, 260px); aspect-ratio: auto; padding: 1rem; }
+.signature-menu-tile .signature-photo-frame { transform-origin: center bottom; transform: translateY(calc(var(--signature-bottom-padding, var(--product-image-bottom-padding, 0)) * var(--signature-photo-scale, 1) * 100%)) scale(var(--signature-photo-scale, 1)); }
+.signature-menu-tile .signature-photo-frame img { object-position: center bottom; }
+.signature-menu-tile .menu-tile-name { min-height: 2lh; padding-inline: .25rem; }
+.signature-menu-tile .menu-tile-description { margin-top: 0; padding-inline: .25rem; }
+.signature-menu-tile .menu-tile-presentation { padding: .375rem .25rem 0; }
+/* Shared subgrid tracks keep padded content panels aligned across a row. */
+.menu-tile .menu-tile-details { border-radius: 1rem; padding: 1rem; background: transparent; transition: background-color 230ms ease; }
+.signature-menu-tile .menu-tile-details { display: grid; grid-row: span 3; grid-template-rows: subgrid; }
+.menu-tile :is(.menu-tile-name, .menu-tile-description, .menu-tile-price, .menu-tile-sizes, .menu-tile-presentation, .menu-tile-category) { transition: color 230ms ease; }
+.menu-tile .menu-tile-action { transition: background-color 230ms ease, color 230ms ease; }
+.menu-tile:focus-within .menu-tile-details { background: #526B3F; }
+.menu-tile:focus-within :is(.menu-tile-name, .menu-tile-description, .menu-tile-price, .menu-tile-sizes, .menu-tile-presentation, .menu-tile-category) { color: #FFFFFF; }
+.menu-tile:focus-within .menu-tile-action { background: #F7F3E8; color: #526B3F; }
+.menu-tile:focus-within .menu-tile-action:focus-visible { outline-color: #F7F3E8; }
+@media (hover: hover) and (pointer: fine) {
+  .menu-tile:hover .menu-tile-details { background: #526B3F; }
+  .menu-tile:hover :is(.menu-tile-name, .menu-tile-description, .menu-tile-price, .menu-tile-sizes, .menu-tile-presentation, .menu-tile-category) { color: #FFFFFF; }
+  .menu-tile:hover .menu-tile-action { background: #F7F3E8; color: #526B3F; }
+  .menu-tile:hover .menu-tile-action:hover { background: #E8DCC4; }
+}
+@media (hover: none) { .menu-tile:focus-within .menu-tile-details { background: transparent; } .menu-tile:focus-within .menu-tile-name { color: #526B3F; } .menu-tile:focus-within :is(.menu-tile-description, .menu-tile-sizes, .menu-tile-presentation, .menu-tile-category) { color: #706258; } .menu-tile:focus-within .menu-tile-price { color: #362820; } .menu-tile:focus-within .menu-tile-action { background: #526B3F; color: #F7F3E8; } .menu-tile:focus-within .menu-tile-action:focus-visible { outline-color: #526B3F; } }
+@media (prefers-reduced-motion: reduce) { .menu-tile .menu-tile-details, .menu-tile :is(.menu-tile-name, .menu-tile-description, .menu-tile-price, .menu-tile-sizes, .menu-tile-presentation, .menu-tile-category, .menu-tile-action) { transition: none; } }

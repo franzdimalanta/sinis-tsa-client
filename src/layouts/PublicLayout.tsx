@@ -5,6 +5,7 @@ import { useCart } from '../hooks/useCart'
 import CustomerFooter from '../components/common/CustomerFooter'
 import HomeWordmarkLink from '../components/navigation/HomeWordmarkLink'
 import brandLogo from '../assets/sinis-tsa-logo.svg'
+import '../components/common/customerHeading.css'
 
 export default function PublicLayout() {
   const { totalQuantity, additionRevision } = useCart()
@@ -17,6 +18,7 @@ export default function PublicLayout() {
   const pathname = useLocation().pathname
   const isHomepage = pathname === '/'
   const isMenuPage = pathname === '/menu'
+  const isAboutPage = pathname === '/about'
 
   useEffect(() => {
     const added = additionRevision > previousAddition.current
@@ -81,6 +83,8 @@ export default function PublicLayout() {
           }} className={`${menuOpen ? 'flex' : 'hidden'} absolute inset-x-0 top-full max-h-[calc(100svh-var(--customer-header-height,5rem))] flex-col items-start gap-1 overflow-y-auto border-t border-white/20 bg-header-green px-5 py-3 sm:px-8 md:static md:flex md:max-h-none md:flex-row md:flex-wrap md:items-center md:overflow-visible md:border-0 md:bg-transparent md:p-0`}>
             <NavigationLink to="/" label="Home" end />
             <NavigationLink to="/menu" label="Menu" />
+            <NavigationLink to="/about" label="About Us" />
+            <button type="button" className="brew-nav-link cursor-pointer border-0 bg-transparent"><span className="brew-nav-label">What’s New</span></button>
             <NavLink to="/cart" aria-label={`Cart (${totalQuantity} ${totalQuantity === 1 ? 'item' : 'items'})`} className={({ isActive }) => `brew-nav-link gap-2${isActive ? ' is-active' : ''}`}>
               <span className="relative inline-flex shrink-0" aria-hidden="true">
               <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -95,7 +99,7 @@ export default function PublicLayout() {
           </nav>
         </div>
       </header>
-      <main id="customer-content" tabIndex={-1} className={`mx-auto w-full min-w-0 flex-1 ${isHomepage ? 'pb-8 sm:pb-10' : isMenuPage ? '' : 'max-w-6xl px-5 py-8 sm:px-8 sm:py-10'}`}>
+      <main id="customer-content" tabIndex={-1} className={`mx-auto w-full min-w-0 flex-1 ${isHomepage ? 'pb-8 sm:pb-10' : isMenuPage || isAboutPage ? '' : 'max-w-6xl px-5 py-8 sm:px-8 sm:py-10'}`}>
         <Outlet />
       </main>
       <CustomerFooter />

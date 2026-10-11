@@ -65,8 +65,8 @@ export default function CheckoutPage() {
 
   return <div className="customer-page checkout-page">
     <Link to="/cart" className="checkout-back">Back to Cart</Link>
-    <h1>CHECKOUT</h1>
-    {!items.length ? <div className="mt-6 space-y-4"><EmptyState message="Your cart is empty. Add something from the menu before checking out." /><Link to="/menu" className="checkout-back">Explore Menu</Link></div> :
+    <h1 className="customer-heading customer-heading--page">CHECKOUT</h1>
+    {!items.length ? <div className="mt-6 space-y-4"><EmptyState message="Your cart is empty. Add something from the menu before checking out." /><Link to="/menu" className="checkout-back">View Menu</Link></div> :
     <div className="checkout-layout">
       <form onSubmit={event => { void handleSubmit(reviewOrder)(event) }} onChange={() => setReview(null)} noValidate className="checkout-panel">
         <p className="checkout-step">01 / Your details</p><h2>Your Details</h2>

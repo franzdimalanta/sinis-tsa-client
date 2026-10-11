@@ -1,13 +1,12 @@
 import { useRef, useState, type CSSProperties } from 'react'
-import ProductDetailsLink from './ProductDetailsLink'
-import type { MenuItem } from '../../types/menu'
-import { resolveSignatureItem, signatureSlides, type SignatureSlide } from './signatureSlides'
+import SignatureImage from './SignatureImage'
+import { signatureSlides, type SignatureSlide } from './signatureSlides'
 import './signatureShowcase.css'
 import { useLocation } from 'react-router-dom'
 import { useMenuShowcaseEntrance } from '../../hooks/useMenuShowcaseEntrance'
 
 function DrinkVisual({ slide }: { slide: SignatureSlide }) {
-  if (slide.image) return <img src={slide.image} alt="" className="signature-drink-image" />
+  if (slide.image) return <SignatureImage src={slide.image} alt={slide.imageAlt ?? slide.name} scale={slide.imageScale} className="signature-drink-image" />
   return <svg aria-hidden="true" className="signature-drink-image" viewBox="0 0 300 390" fill="none">
     <ellipse cx="150" cy="363" rx="85" ry="12" fill="#25371F" opacity=".18" />
     <path d="M159 30h12l-8 86h-12z" fill="#F7F3E8" />
@@ -27,24 +26,21 @@ function DrinkVisual({ slide }: { slide: SignatureSlide }) {
   </svg>
 }
 
-export default function SignatureShowcase({ items, loading, error }: {
-  items: MenuItem[]; loading: boolean; error: string | null
-}) {
+export default function SignatureShowcase() {
   const [selection, setSelection] = useState({ index: 0, direction: 1, moved: false })
   const touchStart = useRef<{ x: number; y: number } | null>(null)
   const showcaseRef = useRef<HTMLElement>(null)
   const location = useLocation()
   useMenuShowcaseEntrance(showcaseRef, location.key)
   const slide = signatureSlides[selection.index]
-  const item = !loading && !error ? resolveSignatureItem(slide, items) : undefined
   function move(direction: number) {
     setSelection(current => ({ index: (current.index + direction + signatureSlides.length) % signatureSlides.length, direction, moved: true }))
   }
 
   return <section ref={showcaseRef} className="signature-showcase" aria-labelledby="menu-title">
-    <h1 id="menu-title"><span className="signature-heading-entrance" data-menu-entrance="heading">OUR MENU</span></h1>
+    <h1 id="menu-title" className="customer-heading"><span className="signature-heading-entrance" data-menu-entrance="heading">OUR MENU</span></h1>
     <div className="signature-carousel" role="region" aria-roledescription="carousel" aria-labelledby="signatures-title">
-      <h2 id="signatures-title"><span className="signature-heading-entrance" data-menu-entrance="heading">OUR BEST SELLERS</span></h2>
+      <h2 id="signatures-title" className="customer-heading"><span className="signature-heading-entrance" data-menu-entrance="heading">OUR BEST SELLERS</span></h2>
       <div className="signature-stage" onTouchStart={event => {
         const touch = event.touches[0]
         touchStart.current = event.touches.length === 1 ? { x: touch.clientX, y: touch.clientY } : null
@@ -61,7 +57,7 @@ export default function SignatureShowcase({ items, loading, error }: {
         </button>
         <div className="signature-visuals" style={{ '--signature-offset': `${selection.direction * 36}px` } as CSSProperties}>
           <div className="signature-preview" aria-hidden="true"><div className="signature-visual-entrance" data-menu-entrance="left"><div key={slide.id} className={selection.moved ? 'signature-enter' : ''}><DrinkVisual slide={signatureSlides[(selection.index + signatureSlides.length - 1) % signatureSlides.length]} /></div></div></div>
-          <div className="signature-selected"><div className="signature-visual-entrance" data-menu-entrance="center"><div key={slide.id} className={selection.moved ? 'signature-enter' : ''}><DrinkVisual slide={slide} /></div></div></div>
+          <div className="signature-selected"><div className="signature-visual-entrance" data-menu-entrance="center"><div key={slide.id} className={'signature-active-visual' + (selection.moved ? ' signature-enter' : '')}><DrinkVisual slide={slide} /></div></div></div>
           <div className="signature-preview" aria-hidden="true"><div className="signature-visual-entrance" data-menu-entrance="right"><div key={slide.id} className={selection.moved ? 'signature-enter' : ''}><DrinkVisual slide={signatureSlides[(selection.index + 1) % signatureSlides.length]} /></div></div></div>
         </div>
         <button type="button" className="signature-arrow signature-arrow-next" aria-label="Next signature drink" onClick={() => move(1)}>
@@ -69,11 +65,10 @@ export default function SignatureShowcase({ items, loading, error }: {
         </button>
       </div>
       <div className="signature-details" data-menu-entrance="details" role="group" aria-roledescription="slide" aria-label={`${selection.index + 1} of ${signatureSlides.length}`} aria-live="polite" aria-atomic="true">
-        <h3>{item?.name ?? slide.name}</h3>
-        <p className="signature-description">{slide.description}</p>
-        {item &&
-          <ProductDetailsLink className="signature-view" to={`/menu/${encodeURIComponent(item._id)}`} aria-label={`View Drink: ${item.name}`}>View Drink</ProductDetailsLink>
-        }
+        <div className="signature-copy-slot">
+          {signatureSlides.map(featured => <div key={`reserve:${featured.id}`} aria-hidden="true" className="signature-copy-reserve"><h3>{featured.name}</h3><p className="signature-description">{featured.description}</p></div>)}
+          <div key={slide.id} className={selection.moved ? 'signature-copy-enter' : ''}><h3>{slide.name}</h3><p className="signature-description">{slide.description}</p></div>
+        </div>
       </div>
       <div className="signature-dots" data-menu-entrance="details" role="group" aria-label="Choose a featured drink">
         {signatureSlides.map((featured, index) => <button

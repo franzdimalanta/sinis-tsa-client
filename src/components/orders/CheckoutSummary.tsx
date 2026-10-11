@@ -3,7 +3,8 @@ import type { CartItem } from '../../types/cart'
 import type { OrderPreviewResponse } from '../../types/order'
 import { menuProductImages } from '../menu/menuProductImages'
 import { formatPeso } from '../../utils/formatPeso'
-import brandLogo from '../../assets/sinis-tsa-logo.svg'
+import ProductThumbnail from '../menu/ProductThumbnail'
+import { productPresentation } from '../menu/productPresentation'
 
 export default function CheckoutSummary({ items, subtotal, totalQuantity, preview, children }: {
   items: CartItem[]; subtotal: number; totalQuantity: number; preview?: OrderPreviewResponse; children: ReactNode
@@ -34,8 +35,8 @@ export default function CheckoutSummary({ items, subtotal, totalQuantity, previe
     <ul className="checkout-summary-items">{lines.map(item => {
       const image = menuProductImages[item.id]
       return <li key={`${item.id || item.name}:${item.size}`}>
-        <div className={'checkout-thumbnail' + (!image ? ' is-placeholder' : '')}><img src={image?.src ?? brandLogo} alt={image?.alt ?? ''} /></div>
-        <div className="checkout-line-details"><h3>{item.name}</h3><p className="capitalize">{item.size} · Qty {item.quantity}</p><p>{formatPeso(item.unitPrice)} each</p><strong>{formatPeso(item.lineTotal)}</strong></div>
+        <div className={'checkout-thumbnail' + (!image ? ' is-placeholder' : '')}><ProductThumbnail productId={item.id} /></div>
+        <div className="checkout-line-details"><h3>{productPresentation[item.id]?.name ?? item.name}</h3><p className="capitalize">{item.size} · Qty {item.quantity}</p><p>{formatPeso(item.unitPrice)} each</p><strong>{formatPeso(item.lineTotal)}</strong></div>
       </li>
     })}</ul>
     <dl className="checkout-totals">

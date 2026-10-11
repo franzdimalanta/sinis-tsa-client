@@ -1,0 +1,14 @@
+/* About Us display typography; colors and spacing remain with each section.
+   Unspecified sizes preserve the component's existing responsive scale. */
+.customer-heading.customer-heading {
+  font-family: 'Paytone One', sans-serif;
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.customer-heading.customer-heading--page { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+.customer-heading.customer-heading--section { font-size: clamp(1.875rem, 3.4vw, 3rem); }
+.customer-heading.customer-heading--detail { font-size: clamp(1.75rem, 4vw, 2.75rem); }

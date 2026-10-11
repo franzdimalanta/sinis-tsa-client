@@ -32,7 +32,7 @@
 .signature-view:hover { background: #E8DCC4; }
 .signature-browse { align-self: center; margin-top: clamp(1rem, 3svh, 2rem); margin-bottom: clamp(1rem, 3svh, 2rem); }
 .signature-dots { display: flex; flex-wrap: wrap; justify-content: center; margin-top: .25rem; }
-.signature-dot { display: grid; place-items: center; width: 14px; height: 44px; padding: 0; border: 0; background: transparent; }
+.signature-dot { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; }
 .signature-dot span { width: 6px; height: 6px; border-radius: 50%; background: #F7F3E8; opacity: .4; transition: opacity 200ms ease; }
 .signature-dot[aria-current="true"] span { opacity: 1; }
 .signature-dot:hover span { opacity: .7; }
@@ -47,9 +47,29 @@
   .signature-arrow-prev { left: 0; }
   .signature-arrow-next { right: 0; }
   .signature-details { margin-top: .5rem; }
+  .signature-showcase h1 { font-size: clamp(2.75rem, 12vw, 3.375rem); }
+  .signature-details h3 { overflow-wrap: anywhere; text-wrap: balance; }
+}
+@media (max-height: 600px) {
+  .signature-showcase { padding-block: 1rem; }
+  .signature-carousel { padding-top: 1.25rem; }
+  .signature-browse { margin-block: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .signature-enter .signature-drink-image { animation: none; }
   .signature-arrow { transition: none; }
   .signature-dot span { transition: none; }
 }
+/* Nested wrappers keep slide motion separate from cutout sizing and entrance. */
+.signature-active-visual { position: relative; isolation: isolate; }
+.signature-active-visual::before { content: ''; position: absolute; width: calc(var(--signature-drink-height) * 1.05); max-width: 125%; aspect-ratio: 1; left: 50%; top: 48%; transform: translate(-50%, -50%); background: radial-gradient(circle, #F7F3E83D 0%, #FFFFFF20 40%, #F7F3E808 62%, transparent 74%); border-radius: 50%; z-index: -1; pointer-events: none; }
+.signature-active-visual::after { content: ''; position: absolute; bottom: 2%; left: 29%; width: 42%; height: 5%; border-radius: 50%; background: #25371F33; filter: blur(8px); z-index: -1; pointer-events: none; }
+.signature-enter { animation: signature-slide-polish 580ms cubic-bezier(.22,.61,.36,1) both; }
+.signature-enter .signature-drink-image { animation: none; }
+.signature-copy-slot { display: grid; }
+.signature-copy-slot > div { grid-area: 1 / 1; min-width: 0; }
+.signature-copy-reserve { visibility: hidden; pointer-events: none; }
+.signature-copy-enter { animation: signature-copy-polish 580ms cubic-bezier(.22,.61,.36,1) both; }
+@keyframes signature-slide-polish { from { opacity: .78; transform: translateX(var(--signature-offset)) scale(.97); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes signature-copy-polish { from { opacity: .7; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .signature-enter, .signature-copy-enter { animation: none; } }

@@ -1,0 +1,74 @@
+.about-page { background: #F7F3E8; color: #362820; font-family: Manrope, sans-serif; }
+.about-page .about-width { width: min(100%, 1200px); margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); }
+.about-section { padding-block: clamp(64px, 8vw, 112px); }
+.about-page h1, .about-page h2 { color: #526B3F; }
+.about-page h1 { font-size: clamp(40px, 5.4vw, 72px); margin: 0 0 24px; }
+.about-page h2 { font-size: clamp(30px, 3.4vw, 46px); margin: 0 0 24px; }
+.about-page h3 { font-size: clamp(21px, 2vw, 25px); font-weight: 800; line-height: 1.3; color: #526B3F; margin: 0 0 14px; }
+.about-page p { font-size: 17px; line-height: 1.75; }
+.about-page .about-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .15em; color: #526B3F; margin: 0 0 20px; }
+.about-hero-layout { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 36px; padding-block: clamp(56px, 7vw, 100px); }
+.about-page .about-lead { max-width: 52ch; font-size: clamp(17px, 1.7vw, 20px); line-height: 1.7; margin: 0; }
+.about-product-composition { position: relative; min-width: 0; height: clamp(330px, 37vw, 460px); }
+.about-product-halo { position: absolute; inset: 10% 0 8%; border-radius: 50%; background: #EBCB7526; }
+.about-product { position: absolute; width: 65%; height: 90%; object-fit: contain; }
+.about-product-coffee { left: -3%; top: 0; transform: rotate(-10deg); }
+.about-product-matcha { right: -2%; bottom: 0; transform: rotate(9deg); }
+.about-composition-label { position: absolute; right: 1%; top: 4%; background: #526B3F; color: #F7F3E8; padding: 14px 20px; border-radius: 22px 22px 22px 4px; font-weight: 800; font-size: 14px; line-height: 1.4; transform: rotate(5deg); }
+.about-story { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(32px, 6vw, 90px); }
+.about-story-eye { width: 80px; height: 70px; object-fit: contain; margin-top: 24px; }
+.about-prose { max-width: 62ch; }
+.about-prose p { margin: 0 0 24px; }
+.about-prose p:last-child { margin-bottom: 0; }
+.about-purpose { background: #526B3F; color: #F7F3E8; }
+.about-purpose .about-eyebrow { color: #EBCB75; }
+.about-purpose h2 { color: #F7F3E8; }
+.about-purpose-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(36px, 7vw, 100px); margin-top: 44px; }
+.about-purpose-columns p { max-width: 46ch; margin: 0; }
+.about-section-number { display: block; font-size: 14px; font-weight: 800; color: #EBCB75; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid #F7F3E830; }
+.about-section-heading { max-width: 750px; margin-bottom: 44px; }
+.about-section-heading p:last-child { margin: 0; }
+.about-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.about-value { border-top: 1px solid #526B3F33; padding-top: 28px; }
+.about-value svg { width: 32px; height: 32px; color: #526B3F; margin-bottom: 22px; }
+.about-value p { margin: 0; }
+.about-team { background: #EEE9DC; }
+.about-developers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.about-developer-reveal { min-width: 0; display: flex; }
+.about-developer { width: 100%; display: flex; flex-direction: column; background: #F7F3E8; border-radius: 26px; box-shadow: 0 4px 18px #36282008; transition: transform 220ms ease-out, box-shadow 220ms ease-out; }
+.about-portrait { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 26px 26px 0 0; background: #526B3F; }
+.about-portrait-image { width: 100%; height: 100%; object-fit: cover; }
+.about-portrait-placeholder { display: flex; height: 100%; flex-direction: column; align-items: center; justify-content: center; color: #F7F3E8; background: radial-gradient(ellipse at 20% 10%, #EBCB7529, transparent 65%); }
+.about-portrait-placeholder img { width: 64px; height: 54px; object-fit: contain; }
+.about-portrait-placeholder span { font-family: 'Paytone One', sans-serif; font-size: clamp(56px, 7vw, 84px); line-height: 1.2; }
+.about-page .about-portrait-placeholder p { margin: 12px 0 0; font-size: 13px; letter-spacing: .06em; }
+.about-developer-copy { flex: 1; display: flex; flex-direction: column; padding: clamp(24px, 3vw, 36px); }
+.about-developer-copy p { margin: 0 0 24px; }
+.about-page .about-developer-role { font-size: 14px; font-weight: 700; color: #526B3F; margin-bottom: 20px; }
+.about-page .about-developer-footer { margin: auto 0 0; padding-top: 20px; border-top: 1px solid #526B3F26; font-size: 14px; line-height: 1.6; }
+.about-closing { text-align: center; }
+.about-closing img { width: 66px; height: 54px; object-fit: contain; margin: 0 auto 24px; }
+.about-closing h2 { max-width: 750px; margin-inline: auto; }
+.about-closing p { margin: 0 0 28px; }
+.about-menu-button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; border-radius: 999px; padding: 12px 30px; background: #526B3F; color: #F7F3E8; font-weight: 800; transition: background-color 180ms ease; }
+.about-menu-button:hover { background: #405631; }
+.about-menu-button:focus-visible { outline: 3px solid #526B3F; outline-offset: 5px; }
+.about-intro-entrance { animation: about-enter 550ms ease-out both; }
+@keyframes about-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@media (hover: hover) and (pointer: fine) { .about-developer:hover { transform: translateY(-4px); box-shadow: 0 12px 30px #36282012; } }
+@media (max-width: 767px) {
+  .about-hero-layout { grid-template-columns: 1fr; gap: 30px; }
+  .about-product-composition { width: min(100%, 420px); height: 320px; margin-inline: auto; }
+  .about-story, .about-purpose-columns, .about-developers { grid-template-columns: 1fr; }
+  .about-story-eye { margin-top: 16px; width: 60px; height: 50px; }
+  .about-purpose-columns { gap: 40px; margin-top: 32px; }
+  .about-values { grid-template-columns: 1fr; gap: 30px; }
+  .about-section-heading { margin-bottom: 32px; }
+  .about-developers { gap: 32px; }
+  .about-page p { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-intro-entrance { animation: none; }
+  .about-developer, .about-menu-button { transition: none; }
+  .about-developer:hover { transform: none; }
+}

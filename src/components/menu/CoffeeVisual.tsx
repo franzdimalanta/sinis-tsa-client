@@ -9,6 +9,6 @@ export default function CoffeeVisual({ compact = false }: { compact?: boolean })
         <div className="absolute inset-[30%] rounded-full border border-accent/40" />
       </div>
     </div>
-    {!compact && <span className="absolute bottom-7 left-7 text-[0.65rem] uppercase tracking-[0.22em] text-muted">BrewLogic / A moment for you</span>}
+    {!compact && <span className="absolute bottom-7 left-7 text-[0.65rem] uppercase tracking-[0.22em] text-muted">SINIS TSA / A moment for you</span>}
   </div>
 }

@@ -25,7 +25,7 @@ function ConfirmationDetails({ id }: { id: string }) {
   if (loading) return <LoadingState message="Loading your order..." />
   if (error || !order) return <ErrorState message={error ?? 'This order could not be found.'} onRetry={retry} />
   return <section className="rounded-xl border border-border bg-surface p-6 sm:p-10">
-    <p className="inline-flex rounded-full border border-green-200 bg-green-50 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-green-900">BrewLogic order confirmation</p>
+    <p className="inline-flex rounded-full border border-green-200 bg-green-50 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-green-900">SINIS TSA order confirmation</p>
     <h1 className="mt-5 text-4xl tracking-tight text-primary sm:text-5xl">Your order is confirmed</h1>
     <p className="mt-3 text-stone-600">Thank you, {order.customerName}.</p>
     <dl className="mt-8 grid gap-6 border-y border-border py-6 sm:grid-cols-2">

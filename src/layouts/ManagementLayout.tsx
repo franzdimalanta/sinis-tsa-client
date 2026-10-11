@@ -15,7 +15,7 @@ export default function ManagementLayout() {
     <div className="min-h-screen bg-background md:grid md:grid-cols-[15rem_minmax(0,1fr)] lg:grid-cols-[16rem_minmax(0,1fr)]">
       <aside className="management-sidebar min-w-0 bg-primary px-5 py-6 text-background md:sticky md:top-0 md:flex md:h-screen md:flex-col md:px-6 md:py-8">
         <Link to="/manage" className="block w-fit focus-visible:outline-background">
-          <span className="block font-editorial text-3xl leading-none tracking-tight">BrewLogic</span>
+          <span className="block font-editorial text-3xl leading-none tracking-tight">SINIS TSA</span>
           <span className="mt-3 block text-[0.65rem] uppercase tracking-[0.2em] text-surface-warm">Management</span>
         </Link>
         <nav aria-label="Management navigation" className="mt-6 flex flex-wrap gap-1 md:mt-10 md:flex-col md:gap-2">

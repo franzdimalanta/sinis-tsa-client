@@ -1,5 +1,8 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import NavigationLink from '../components/navigation/NavigationLink'
+import brandLogo from '../assets/sinis-tsa-hero-logo.svg'
+import '../managementTheme.css'
 
 const links = [
   { to: '/manage', label: 'Dashboard', end: true },
@@ -11,23 +14,45 @@ const links = [
 ]
 
 export default function ManagementLayout() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    if (!menuOpen) return
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      setMenuOpen(false)
+      menuButtonRef.current?.focus()
+    }
+    const desktop = window.matchMedia('(min-width: 768px)')
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false) }
+    window.addEventListener('keydown', closeOnEscape)
+    desktop.addEventListener('change', closeOnDesktop)
+    return () => {
+      window.removeEventListener('keydown', closeOnEscape)
+      desktop.removeEventListener('change', closeOnDesktop)
+    }
+  }, [menuOpen])
   return (
-    <div className="min-h-screen bg-background md:grid md:grid-cols-[15rem_minmax(0,1fr)] lg:grid-cols-[16rem_minmax(0,1fr)]">
-      <aside className="management-sidebar min-w-0 bg-primary px-5 py-6 text-background md:sticky md:top-0 md:flex md:h-screen md:flex-col md:px-6 md:py-8">
-        <Link to="/manage" className="block w-fit focus-visible:outline-background">
-          <span className="block font-editorial text-3xl leading-none tracking-tight">SINIS TSA</span>
-          <span className="mt-3 block text-[0.65rem] uppercase tracking-[0.2em] text-surface-warm">Management</span>
-        </Link>
-        <nav aria-label="Management navigation" className="mt-6 flex flex-wrap gap-1 md:mt-10 md:flex-col md:gap-2">
-          {links.map((link) => <NavigationLink key={link.to} {...link} />)}
-        </nav>
-        <div className="mt-6 border-t border-accent/40 pt-5 md:mt-auto">
-          <Link to="/" className="text-sm text-surface-warm underline underline-offset-4 hover:text-white focus-visible:outline-background">
-            Back to customer site
+    <div className="management-shell">
+      <a href="#management-content" className="management-skip-link">Skip to content</a>
+      <aside className="management-sidebar">
+        <div className="management-brand-row">
+          <Link to="/manage" className="management-brand" onClick={() => setMenuOpen(false)}>
+            <img src={brandLogo} alt="" width="40" height="40" />
+            <span><span className="management-wordmark">SINIS TSA</span><span className="management-identifier">Management</span></span>
           </Link>
+          <button ref={menuButtonRef} type="button" className="management-menu-toggle" aria-label={menuOpen ? 'Close management navigation' : 'Open management navigation'} aria-expanded={menuOpen} aria-controls="management-navigation" onClick={() => setMenuOpen(open => !open)}>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              {menuOpen ? <path d="m6 6 12 12M6 18 18 6" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+            </svg>
+          </button>
         </div>
+        <nav id="management-navigation" aria-label="Management navigation" className={menuOpen ? 'is-open' : ''} onClick={event => { if ((event.target as Element).closest('a')) setMenuOpen(false) }}>
+          {links.map(link => <NavigationLink key={link.to} {...link} />)}
+        </nav>
+        <Link to="/" className="management-customer-link">Back to customer site <span aria-hidden="true">↗</span></Link>
       </aside>
-      <main className="management-workspace min-w-0 px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
+      <main id="management-content" tabIndex={-1} className="management-workspace">
         <div className="mx-auto min-w-0 max-w-6xl"><Outlet /></div>
       </main>
     </div>

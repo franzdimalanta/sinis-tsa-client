@@ -131,4 +131,85 @@
   .management-page-header > div:last-child:not(:first-child), .management-page-header .ui-button { width: 100%; }
   .management-workspace .management-metrics { grid-template-columns: minmax(0, 1fr); }
 }
-@media (prefers-reduced-motion: reduce) { .management-shell *, .management-sidebar .brew-nav-link { transition: none; } }
+/* Match the public site's ease-out motion, with shorter operational feedback. */
+.management-shell { --management-motion: 180ms; --management-ease: ease-out; }
+.management-shell :is(button, a) {
+  transition: background-color var(--management-motion) var(--management-ease),
+    color var(--management-motion) var(--management-ease),
+    border-color var(--management-motion) var(--management-ease),
+    box-shadow var(--management-motion) var(--management-ease);
+}
+.management-shell :is(button:enabled, a.ui-button, a.brew-nav-link):active {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+.management-workspace :is(button, input, select, textarea):disabled {
+  /* Cancel hover feedback, including controls disabled by a parent fieldset. */
+  pointer-events: none;
+  box-shadow: none;
+}
+.management-workspace :is(input, select, textarea) {
+  transition: border-color 180ms ease-out, box-shadow 180ms ease-out, background-color 180ms ease-out;
+}
+.management-workspace :is(input, select, textarea):enabled:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px #526B3F18;
+}
+.management-workspace :is(input, select, textarea)[aria-invalid="true"]:focus {
+  border-color: var(--color-red-700);
+}
+.management-workspace :is(.management-menu-card, .management-order-card, .management-stock-card,
+  .management-recipe-card, .management-editor, .management-stock-in, .management-metrics > div) {
+  transition: border-color 180ms ease-out, box-shadow 180ms ease-out;
+}
+.management-workspace :is(.management-menu-card, .management-order-card, .management-stock-card,
+  .management-recipe-card, .management-editor, .management-stock-in):focus-within {
+  border-color: #526B3F80;
+}
+@media (hover: hover) and (pointer: fine) {
+  .management-workspace :is(.management-menu-card, .management-order-card, .management-stock-card,
+    .management-recipe-card, .management-metrics > div):hover { border-color: #526B3F80; }
+}
+.management-workspace [data-status] {
+  transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out;
+}
+@keyframes management-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes management-feedback { from { opacity: .35; } to { opacity: 1; } }
+/* Animate a content group once on mount, never each nested card or metric. */
+.management-content-enter { animation: management-enter 220ms ease-out; }
+.management-workspace :is(.management-metrics, .management-editor,
+  div:has(> .management-menu-card), div:has(> .management-order-card),
+  div:has(> .management-stock-card), div:has(> .management-recipe-card),
+  .management-best-sellers > ol, .management-daily-sales) {
+  animation: management-enter 220ms ease-out;
+}
+.management-workspace :is([role="alert"], [role="status"]:not(:empty), .ui-empty-state) {
+  animation: management-feedback 160ms ease-out;
+}
+/* A finite loading pulse signals activity without a persistent decorative loop. */
+.management-workspace .ui-panel[role="status"] > span[aria-hidden="true"] {
+  animation: management-feedback 700ms ease-in-out 3 alternate;
+}
+@media (max-width: 767px) {
+  .management-sidebar nav {
+    opacity: 0;
+    transform: translateY(-4px);
+    /* Older browsers keep immediate closing and still receive the open reveal. */
+    transition: opacity 180ms ease-out, transform 180ms ease-out, display 180ms allow-discrete;
+  }
+  .management-sidebar nav.is-open { opacity: 1; transform: none; }
+  @starting-style {
+    .management-sidebar nav.is-open { opacity: 0; transform: translateY(-4px); }
+  }
+  /* React's inert attribute removes closing links from focus and accessibility. */
+}
+@media (prefers-reduced-motion: reduce) {
+  .management-shell *, .management-shell *::before, .management-shell *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .management-sidebar nav { transform: none; }
+}

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import NavigationLink from '../components/navigation/NavigationLink'
 import brandLogo from '../assets/sinis-tsa-hero-logo.svg'
 import '../managementTheme.css'
@@ -13,7 +13,16 @@ const links = [
   { to: '/manage/analytics', label: 'Analytics' },
 ]
 
+function subscribeDesktop(onChange: () => void) {
+  const media = window.matchMedia('(min-width: 768px)')
+  media.addEventListener('change', onChange)
+  return () => media.removeEventListener('change', onChange)
+}
+const isDesktop = () => window.matchMedia('(min-width: 768px)').matches
+
 export default function ManagementLayout() {
+  const { pathname } = useLocation()
+  const desktopNavigation = useSyncExternalStore(subscribeDesktop, isDesktop, () => false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
@@ -47,13 +56,13 @@ export default function ManagementLayout() {
             </svg>
           </button>
         </div>
-        <nav id="management-navigation" aria-label="Management navigation" className={menuOpen ? 'is-open' : ''} onClick={event => { if ((event.target as Element).closest('a')) setMenuOpen(false) }}>
+        <nav id="management-navigation" aria-label="Management navigation" inert={!desktopNavigation && !menuOpen} className={menuOpen ? 'is-open' : ''} onClick={event => { if ((event.target as Element).closest('a')) setMenuOpen(false) }}>
           {links.map(link => <NavigationLink key={link.to} {...link} />)}
         </nav>
         <Link to="/" className="management-customer-link">Back to customer site <span aria-hidden="true">↗</span></Link>
       </aside>
       <main id="management-content" tabIndex={-1} className="management-workspace">
-        <div className="mx-auto min-w-0 max-w-6xl"><Outlet /></div>
+        <div key={pathname} className="management-content-enter mx-auto min-w-0 max-w-6xl"><Outlet /></div>
       </main>
     </div>
   )
